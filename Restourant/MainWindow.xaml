@@ -1,0 +1,227 @@
+﻿<Window x:Name="TablesForm" x:Class="Restourant.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restourant"
+        mc:Ignorable="d"
+        Title="Restaurant KY" Height="768" Width="1024" Topmost="True" Visibility="Visible" Foreground="{x:Null}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="16"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}" Icon="wine.png"
+>
+    <Grid x:Name="mainGrid" HorizontalAlignment="Left" Height="734" VerticalAlignment="Top" Width="1014">
+        <Grid x:Name="orderGrid" Margin="0,0,-2,-2">
+            <TabControl HorizontalAlignment="Left" Height="735" VerticalAlignment="Top" Width="1016" Margin="0,0,-216,-182.25" Background="{x:Null}">
+                <TabItem x:Name="Restaurant" Header="Ресторан" Margin="0" Height="30" FontSize="18" Width="240" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Grid x:Name="DeskGrid" Margin="0,0,0,-1">
+                        <Separator HorizontalAlignment="Left" Margin="245,341,0,337" Width="697" RenderTransformOrigin="0.5,0.5">
+                            <Separator.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-90"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Separator.RenderTransform>
+                        </Separator>
+                        <Button x:Name="newOrder" Content="Новый заказ" HorizontalAlignment="Left" Margin="831,31,0,0" VerticalAlignment="Top" Width="165" Click="newOrder_Click" Height="35" Background="White" BorderBrush="#FF850011" BorderThickness="1" Foreground="#FF850011" FontSize="18">
+                        </Button>
+                        <Button x:Name="AddToOrder" Content="Добавить к заказу" HorizontalAlignment="Left" Margin="609,629,0,0" VerticalAlignment="Top" Width="165" Click="AddToOrder_Click" Height="35" Background="White" BorderBrush="#FF850011" BorderThickness="1" Foreground="#FF850011" FontSize="16" Padding="10,4"/>
+                        <Button x:Name="Billbtn" Content="Чек" HorizontalAlignment="Left" Margin="831,629,0,0" VerticalAlignment="Top" Width="165" Click="Billbtn_Click" Height="35" Background="White" BorderBrush="#FF850011" BorderThickness="1" Foreground="#FF850011" FontSize="16"/>
+                        <DataGrid x:Name="DeskOrder" Margin="608,147,10,159" AutoGenerateColumns="False" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,1,0,5" IsReadOnly="True" Foreground="Black">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Width="240" Binding="{Binding Path=billDishName}"/>
+                                <DataGridTextColumn Header="Кол-во" Width="80" Binding="{Binding Path=billDishCount}"/>
+                                <DataGridTextColumn Header="Цена" Width="*" Binding="{Binding Path=billDishPrice}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Label x:Name="DeskTotalCost" Content="0" HorizontalAlignment="Left" Margin="956,535,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.475,0.456"/>
+                        <Label Content="Стол #" HorizontalAlignment="Left" Margin="608,10,0,0" VerticalAlignment="Top" FontSize="48" Height="75" />
+                        <Rectangle x:Name="DesksSeparator" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="558" Margin="288,52,0,0" RadiusY="1" RadiusX="1" Stroke="Black" VerticalAlignment="Top" Width="6" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-0.215"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Grid x:Name="RestBackground" HorizontalAlignment="Left" Height="697" VerticalAlignment="Top" Width="594" Margin="0,0,0,-3">
+                            <Image x:Name="RestaurantBackground" HorizontalAlignment="Left" Height="687" VerticalAlignment="Top" Width="594" Margin="0,10,0,0" Source="rest.png">
+                                <Image.OpacityMask>
+                                    <ImageBrush ImageSource="rest.png"/>
+                                </Image.OpacityMask>
+                            </Image>
+                        </Grid>
+                        <Rectangle x:Name="Table_1" Fill="White" Stroke="Black" Margin="36,19,890,535" MouseUp="Table_1_MouseUp" RadiusX="4" RadiusY="4" Width="80" Height="140" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-270"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="Table_2" Fill="White" Stroke="Black" Margin="36,159,890,395" MouseUp="Table_2_MouseUp" RadiusX="4" RadiusY="4" Width="80" Height="140" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-450"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="Table_3" Fill="White" Stroke="Black" Margin="40,542,890,16" RadiusX="4" RadiusY="4" Width="80" Height="140" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-450"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle x:Name="Table_4" Fill="White" HorizontalAlignment="Left" Height="70" Margin="293,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="70" RadiusX="4" RadiusY="4" MouseUp="Table_4_MouseUp"/>
+                        <Rectangle x:Name="Table_5" Fill="White" HorizontalAlignment="Left" Height="70" Margin="294,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="70" RadiusX="4" RadiusY="4"/>
+                        <Rectangle x:Name="Table_6" Fill="White" HorizontalAlignment="Left" Height="70" Margin="294,295,0,0" Stroke="Black" VerticalAlignment="Top" Width="70" RadiusX="4" RadiusY="4" MouseUp="Table_2_MouseUp"/>
+                        <Rectangle x:Name="Table_7" Fill="White" HorizontalAlignment="Left" Height="70" Margin="294,405,0,0" Stroke="Black" VerticalAlignment="Top" Width="70" RadiusX="4" RadiusY="4" MouseUp="Table_2_MouseUp"/>
+                        <Rectangle x:Name="Table_8" Fill="White" HorizontalAlignment="Left" Height="70" Margin="295,515,0,0" Stroke="Black" VerticalAlignment="Top" Width="70" RadiusX="4" RadiusY="4" MouseUp="Table_2_MouseUp"/>
+                        <Rectangle x:Name="Table_9" Fill="White" HorizontalAlignment="Left" Height="70" Margin="512,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="70" RadiusX="4" RadiusY="4" MouseUp="Table_2_MouseUp"/>
+                        <Rectangle x:Name="Table_10" Fill="White" HorizontalAlignment="Left" Height="70" Margin="512,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="70" RadiusX="4" RadiusY="4" MouseUp="Table_2_MouseUp"/>
+                        <Rectangle x:Name="Table_11" Fill="White" HorizontalAlignment="Left" Height="70" Margin="512,295,0,0" Stroke="Black" VerticalAlignment="Top" Width="70" RadiusX="4" RadiusY="4" MouseUp="Table_2_MouseUp"/>
+                        <Rectangle x:Name="Table_12" Fill="White" HorizontalAlignment="Left" Height="70" Margin="512,405,0,0" Stroke="Black" VerticalAlignment="Top" Width="70" RadiusX="4" RadiusY="4" MouseUp="Table_2_MouseUp"/>
+                        <Rectangle x:Name="Table_13" Fill="White" HorizontalAlignment="Left" Height="70" Margin="512,515,0,0" Stroke="Black" VerticalAlignment="Top" Width="70" RadiusX="4" RadiusY="4" MouseUp="Table_2_MouseUp"/>
+                        <Label x:Name="DesksID" Content="" HorizontalAlignment="Left" Margin="767,10,0,0" VerticalAlignment="Top" FontSize="48" Height="75" Width="42"/>
+                        <Label x:Name="DeskTotalLabel" Content="ИТОГО" HorizontalAlignment="Left" Margin="619,535,0,0" VerticalAlignment="Top" FontSize="20"/>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="Kitchen" Header="Кухня" Margin="0" Height="30" FontSize="18" Width="240" BorderBrush="{x:Null}" Background="{x:Null}">
+                    <Grid x:Name="KitchenGrid" Background="White" Margin="0,0,1.25,0">
+                        <Separator HorizontalAlignment="Left" Height="519" Margin="396,0,0,0" VerticalAlignment="Top" Width="4" Background="#FF3E3535"/>
+                        <DataGrid x:Name="KitchenDataGrid" HorizontalAlignment="Left" Height="677" Margin="121,10,0,0" VerticalAlignment="Top" Width="760
+                                  " AutoGenerateColumns="False">
+                            <DataGrid.ItemContainerStyle>
+                                <Style TargetType="DataGridRow">
+                                    <EventSetter Event="MouseUp" Handler="BillRow_Click"/>
+                                </Style>
+                            </DataGrid.ItemContainerStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Width="400" Binding="{Binding Path=billDishName}" FontSize="16"/>
+                                <DataGridTextColumn Header="Кол-во" Width="160" Binding="{Binding Path=billDishCount}" FontSize="16"/>
+                                <DataGridTemplateColumn Width="200" Header="Статус">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="BillDishTableRemoveRow" Foreground="#FF28A655" BorderBrush="{x:Null}" Background="White" Click="BillDishTableRemoveRow_Click">Готово!</Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+
+        </Grid>
+        <Grid x:Name="dishesGrid" HorizontalAlignment="Left" Height="736" VerticalAlignment="Top" Width="1016" Margin="0,0,-213.5,-176" d:IsHidden="True">
+            <Button x:Name="backToRest" Content="Оформить заказ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Height="35" Margin="830,681,0,0" Click="backToRest_Click" FontSize="16" Background="White" Foreground="#FF850011" BorderBrush="#FF850011"/>
+            <Separator HorizontalAlignment="Left" Height="12" Margin="280,362,0,0" VerticalAlignment="Top" Width="736" RenderTransformOrigin="0.5,0.5">
+                <Separator.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Separator.RenderTransform>
+            </Separator>
+            <Separator HorizontalAlignment="Left" Height="7" Margin="655,201,0,0" VerticalAlignment="Top" Width="347" Background="#7FA0A0A0">
+                <Separator.Effect>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.5"/>
+                </Separator.Effect>
+            </Separator>
+            <Image HorizontalAlignment="Left" Height="155" Margin="708,25,0,0" VerticalAlignment="Top" Width="155" Source="meat (3).png"/>
+            <Button x:Name="BtnRed" Content="" Margin="887,153,0,0" Style="{DynamicResource SimpleButton}" VerticalAlignment="Top" Width="25" Height="27" BorderBrush="{x:Null}" HorizontalAlignment="Left" Click="BtnRed_Click" Foreground="{x:Null}" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="back.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="BtnInc" Content="" Margin="983,153,0,0" Style="{DynamicResource SimpleButton}" VerticalAlignment="Top" Width="25" Height="27" RenderTransformOrigin="2.85,0.558" HorizontalAlignment="Left" Click="BtnInc_Click" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" SnapsToDevicePixels="True">
+                <Button.Background>
+                    <ImageBrush ImageSource="next.png"/>
+                </Button.Background>
+            </Button>
+            <TextBox x:Name="selDishCount" HorizontalAlignment="Left" Height="24" Margin="912,156,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="71" TextAlignment="Center" FontSize="16" BorderThickness="0" Padding="0" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"/>
+            <TextBox x:Name="dName" HorizontalAlignment="Left" Height="87" Margin="882,25,0,0" TextWrapping="Wrap" Text="Delicious and tastiest meet with some squashed potatoes" VerticalAlignment="Top" Width="120" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14" Foreground="Black"/>
+            <TextBox x:Name="dPrice" HorizontalAlignment="Left" Height="26" Margin="882,112,0,0" TextWrapping="Wrap" Text="RUB 250 " VerticalAlignment="Top" Width="120" Padding="0" FontSize="16" TextAlignment="Center" ScrollViewer.CanContentScroll="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FFD61D1D" AllowDrop="True" IsHitTestVisible="True" Foreground="Black"/>
+            <Grid x:Name="billDishes" Background="#FFF3F3F3" Margin="655,213,6,72" d:IsHidden="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MaxWidth="250" MinWidth="146" Width="250"/>
+                    <ColumnDefinition MaxWidth="50" MinWidth="50" Width="50"/>
+                    <ColumnDefinition MaxWidth="100" MinWidth="100" Width="100"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <DataGrid x:Name="DishesTable" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="614" Margin="9,112,0,0" VerticalAlignment="Top" Width="625" FontFamily="Arial" Background="{x:Null}" FontSize="16" BorderBrush="{x:Null}" IsReadOnly="True" Foreground="Black">
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseUp" Handler="Row_Click"/>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Название" Binding="{Binding dish_name}" Width="550"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding dish_price}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="BillDishesTable" HorizontalAlignment="Left" Height="382" Margin="655,230,0,0" VerticalAlignment="Top" Width="350" BorderBrush="{x:Null}" FontSize="16" FontFamily="Arial" AutoGenerateColumns="False" Background="{x:Null}">
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseUp" Handler="BillRow_Click"/>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Название" Width="160" Binding="{Binding Path=billDishName}" FontSize="16"/>
+                    <DataGridTextColumn Header="Кол-во" Width="70" Binding="{Binding Path=billDishCount}" FontSize="16"/>
+                    <DataGridTextColumn Header="Цена" Width="*" Binding="{Binding Path=billDishPrice}" FontSize="16"/>
+                    <DataGridTemplateColumn Width="65">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="BillDishTableRemoveRow" Foreground="Red" BorderBrush="{x:Null}" Background="White" Click="BillDishTableRemoveRow_Click">X</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Вернуться" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="110" Background="White" FontSize="16" Height="35" BorderBrush="#FF850011" Foreground="#FF850011" BorderThickness="1"/>
+            <Label x:Name="TotalDesk" Content="ИТОГО" HorizontalAlignment="Left" Margin="672,627,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <Label x:Name="BillTotalCost" Content="0" HorizontalAlignment="Left" Margin="945,627,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <Grid x:Name="FilterButtonsGrid" HorizontalAlignment="Left" Height="47" Margin="0,60,0,0" VerticalAlignment="Top" Width="650">
+                <Button x:Name="FilterHot" Content="Горячее" HorizontalAlignment="Left" Margin="9,0,0,-1" VerticalAlignment="Top" Width="125" Height="35" Background="White" FontSize="16" Click="FilterHot_Click" BorderBrush="#FF850011" Padding="1" BorderThickness="1,1,0,1" Foreground="#FF850011"/>
+                <Button x:Name="FilterCold" Content="Холодное" HorizontalAlignment="Left" Margin="134,0,0,-1" VerticalAlignment="Top" Width="125" Height="35" Background="White" FontSize="16" Click="FilterCold_Click" BorderBrush="#FF850011" Foreground="#FF850011" BorderThickness="0,1"/>
+                <Button x:Name="FilterSnack" Content="Закуски" HorizontalAlignment="Left" Margin="259,0,0,-1" VerticalAlignment="Top" Width="125" Height="35" RenderTransformOrigin="1.42,0.685" Background="White" FontSize="16" BorderBrush="#FF850011" Click="FilterSnack_Click" Foreground="#FF850011" BorderThickness="0,1"/>
+                <Button x:Name="FilterDesserts" Content="Десерты" HorizontalAlignment="Left" Margin="384,0,0,-1" VerticalAlignment="Top" Width="125" Height="35" RenderTransformOrigin="1.42,0.685" Background="White" FontSize="16" BorderBrush="#FF850011" Click="FilterDesserts_Click" Foreground="#FF850011" BorderThickness="0,1"/>
+                <Button x:Name="FilterDrinks" Content="Напитки" HorizontalAlignment="Left" Margin="509,0,0,-1" VerticalAlignment="Top" Width="125" Height="35" RenderTransformOrigin="1.42,0.685" Background="White" FontSize="16" BorderBrush="#FF850011" Click="FilterDrinks_Click" Foreground="#FF850011" BorderThickness="0,1,1,1"/>
+            </Grid>
+            <Button x:Name="AllMenu" Content="Меню" HorizontalAlignment="Left" Margin="281,10,0,0" VerticalAlignment="Top" Width="165" Background="White" FontSize="16" Height="35" BorderBrush="#FF850011" Foreground="#FF850011" BorderThickness="1" Click="AllMenu_Click"/>
+        </Grid>
+    </Grid>
+</Window>
