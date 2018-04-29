@@ -34,12 +34,12 @@ namespace Restourant
         public static Desk table5 = new Desk(5, false, 0, 0);
         public static Desk table6 = new Desk(6, false, 0, 0);
         public static Desk table7 = new Desk(7, false, 0, 0);
-        public static Desk table8 = new Desk(1, false, 0, 0);
-        public static Desk table9 = new Desk(2, false, 0, 0);
-        public static Desk table10 = new Desk(3, false, 0, 0);
-        public static Desk table11 = new Desk(4, false, 0, 0);
-        public static Desk table12 = new Desk(5, false, 0, 0);
-        public static Desk table13 = new Desk(6, false, 0, 0);
+        public static Desk table8 = new Desk(8, false, 0, 0);
+        public static Desk table9 = new Desk(9, false, 0, 0);
+        public static Desk table10 = new Desk(10, false, 0, 0);
+        public static Desk table11 = new Desk(11, false, 0, 0);
+        public static Desk table12 = new Desk(12, false, 0, 0);
+        public static Desk table13 = new Desk(13, false, 0, 0);
         public static int activeTable = 0;
         public static Desk activeDesk;
         public static List<Dish> AllDishes;
@@ -67,42 +67,20 @@ namespace Restourant
         private void newOrder_Click(object sender, RoutedEventArgs e)
         {
             orderGrid.Visibility = Visibility.Collapsed;
+            TableNumber.Text = DesksID.Content.ToString();
             dishesGrid.Visibility = Visibility.Visible;
         }
 
         private void backToRest_Click(object sender, RoutedEventArgs e)
         {
-            switch(Globals.activeTable)
-            {
-                case 1:
-                    Globals.table1.TableDishes = new List<Dish>(result);
-                    Globals.table1.TotalCost = Convert.ToInt32(BillTotalCost.Content);
-                    Globals.table1.Order = true;
+            var currentTable = Globals.activeDesk;
+            MakeOrder(currentTable);
+            OrderInfoVisible();
 
-                    DeskOrder.ItemsSource = Globals.table1.TableDishes;
-                    DeskOrder.Items.Refresh();
-                    DeskTotalCost.Content = Globals.table1.TotalCost;
-                    break;
-
-                case 2:
-                    Globals.table2.TableDishes = new List<Dish>(result); ;
-                    Globals.table2.TotalCost = Convert.ToInt32(BillTotalCost.Content);
-                    Globals.table2.Order = true;
-
-                    DeskOrder.ItemsSource = Globals.table2.TableDishes;
-                    DeskOrder.Items.Refresh();
-                    DeskTotalCost.Content = Globals.table2.TotalCost;
-                    break;
-            }
 
             result.Clear();
             BillDishesTable.Items.Refresh();
-            dishesGrid.Visibility = Visibility.Collapsed;
-            orderGrid.Visibility = Visibility.Visible;
-            DeskOrder.Visibility = Visibility.Visible;
-            DeskTotalLabel.Visibility = Visibility.Visible;
-            DeskTotalCost.Visibility = Visibility.Visible;
-            Billbtn.Visibility = Visibility.Visible;
+            ShowRestaurantWindow();
 
             //добавляем блюда с активного стола на вкладку "кухня"
             foreach (Dish item in Globals.activeDesk.TableDishes)
@@ -110,6 +88,18 @@ namespace Restourant
                 KitchenDataGrid.Items.Add(item);
             }
             KitchenDataGrid.Items.Refresh();
+        }
+
+        private void MakeOrder(Desk table)
+        {
+            table.TableDishes = new List<Dish>(result);
+            table.TotalCost = Convert.ToInt32(BillTotalCost.Content);
+            table.Order = true;
+
+            DeskOrder.ItemsSource = table.TableDishes;
+            DeskOrder.Items.Refresh();
+            DeskTotalCost.Content = table.TotalCost;
+
         }
 
         public void ChangeDishCountAndCost(int count)
@@ -166,16 +156,10 @@ namespace Restourant
         {
             if (table.Order)
             {
-                //newOrder.Visibility = Visibility.Collapsed;
-                //AddToOrder.Visibility = Visibility.Visible;
-                //Billbtn.Visibility = Visibility.Visible;
                 OrderInfoVisible();
             }
             else
             {
-                //newOrder.Visibility = Visibility.Visible;
-                //AddToOrder.Visibility = Visibility.Collapsed;
-                //Billbtn.Visibility = Visibility.Collapsed;
                 NewOrderVisible();
             }
         }
@@ -209,6 +193,7 @@ namespace Restourant
                 {
                     int count = Convert.ToInt32(item.billDishCount) + 1;
                     item.billDishCount = count.ToString();
+                    selDishCount.Text = count.ToString();
                     BillTotalCost.Content = (Convert.ToInt32(BillTotalCost.Content)+Convert.ToInt32(item.billDishPrice)).ToString();
                     isRowExist = true;
                     BillDishesTable.ItemsSource = result;
@@ -266,46 +251,80 @@ namespace Restourant
 
         private void Table_1_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            IsTableHasOrder(Globals.table1);
-            Globals.activeTable = 1;
-            DeskOrder.ItemsSource = Globals.table1.TableDishes;
-            DeskOrder.Items.Refresh();
-            DeskTotalCost.Content = Globals.table1.TotalCost;
-            DesksID.Content = Globals.table1.Id;
-
-            ChangeDeskColor(sender);
-            Globals.activeDesk = Globals.table1;
-            ////определяем какой стол кликнут
-            //Rectangle TheDesk = sender as Rectangle;
-            //TheDesk.Fill = Brushes.AliceBlue;
-            ////определяем текст с этого стола-кнопки 
-            //String TblNum = TheDesk.Id.ToString();
-
-            //MessageBox.Show(TblNum);
-
+            var currentTable = Globals.table1;
+            TableClick(sender, currentTable);
         }
 
         private void Table_2_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            IsTableHasOrder(Globals.table2);
-            Globals.activeTable = 2;
-            DeskOrder.ItemsSource = Globals.table2.TableDishes;
-            DeskOrder.Items.Refresh();
-            DeskTotalCost.Content = Globals.table2.TotalCost;
-            DesksID.Content = Globals.table2.Id;
-
-            ChangeDeskColor(sender);
-            Globals.activeDesk = Globals.table2;
+            var currentTable = Globals.table2;
+            TableClick(sender, currentTable);
         }
 
-       private void Table_4_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Table_3_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            IsTableHasOrder(Globals.table4);
-            Globals.activeTable = 4;
-            DeskOrder.ItemsSource = Globals.table4.TableDishes;
-            DeskOrder.Items.Refresh();
-            DeskTotalCost.Content = Globals.table4.TotalCost;
-            DesksID.Content = Globals.table4.Id;
+            var currentTable = Globals.table3;
+            TableClick(sender, currentTable);
+        }
+
+        private void Table_4_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var currentTable = Globals.table4;
+            TableClick(sender, currentTable);
+        }
+
+        private void Table_5_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var currentTable = Globals.table5;
+            TableClick(sender, currentTable);
+        }
+
+        private void Table_6_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var currentTable = Globals.table6;
+            TableClick(sender, currentTable);
+        }
+
+        private void Table_7_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var currentTable = Globals.table7;
+            TableClick(sender, currentTable);
+        }
+
+        private void Table_8_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var currentTable = Globals.table8;
+            TableClick(sender, currentTable);
+        }
+
+        private void Table_9_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var currentTable = Globals.table9;
+            TableClick(sender, currentTable);
+        }
+
+        private void Table_10_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var currentTable = Globals.table10;
+            TableClick(sender, currentTable);
+        }
+
+        private void Table_11_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var currentTable = Globals.table11;
+            TableClick(sender, currentTable);
+        }
+
+        private void Table_12_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var currentTable = Globals.table12;
+            TableClick(sender, currentTable);
+        }
+
+        private void Table_13_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var currentTable = Globals.table13;
+            TableClick(sender, currentTable);
         }
 
         public void ChangeFilterColor(object sender)
@@ -323,6 +342,27 @@ namespace Restourant
             Button TheBtn = sender as Button;
             TheBtn.Foreground = Brushes.White;
             TheBtn.Background = TheBtn.BorderBrush;
+        }
+
+        private void TableClick(object sender, Desk table)
+        {
+            IsTableHasOrder(table);
+            Globals.activeTable = table.Id;
+            DeskOrder.ItemsSource = table.TableDishes;
+            DeskOrder.Items.Refresh();
+            DeskTotalCost.Content = table.TotalCost;
+            DesksID.Content = table.Id;
+
+            ChangeDeskColor(sender);
+            Globals.activeDesk = Globals.table1;
+
+            ////определяем какой стол кликнут
+            //Rectangle TheDesk = sender as Rectangle;
+            //TheDesk.Fill = Brushes.AliceBlue;
+            ////определяем текст с этого стола-кнопки 
+            //String TblNum = TheDesk.Id.ToString();
+
+            //MessageBox.Show(TblNum);
         }
 
         private void AllMenu_Click(object sender, RoutedEventArgs e)
@@ -366,21 +406,12 @@ namespace Restourant
             ChangeFilterColor(sender);
         }
 
-        //private void BillDishTableRemoveRow_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Dish selectedRow = (Dish)BillDishesTable.SelectedItem;
-        //    BillTotalCost.Content = (Convert.ToInt32(BillTotalCost.Content) - Convert.ToInt32(selectedRow.billDishPrice)* Convert.ToInt32(selectedRow.billDishCount)).ToString();
-        //    result.Remove(selectedRow);
-
-        //    BillDishesTable.ItemsSource = result;
-        //    BillDishesTable.Items.Refresh();
-        //}
-
         private void BillDishTableRemoveRow_Click(object sender, RoutedEventArgs e)
         {
-            Dish selectedRow = (Dish)KitchenDataGrid.SelectedItem;
-            var itemSourse = KitchenDataGrid.ItemsSource;
+            Dish selectedRow = (Dish)BillDishesTable.SelectedItem;
+            BillTotalCost.Content = (Convert.ToInt32(BillTotalCost.Content) - Convert.ToInt32(selectedRow.billDishPrice)* Convert.ToInt32(selectedRow.billDishCount)).ToString();
             result.Remove(selectedRow);
+            selDishCount.Text = "0";
 
             BillDishesTable.ItemsSource = result;
             BillDishesTable.Items.Refresh();
@@ -418,23 +449,50 @@ namespace Restourant
 
         private void NewOrderVisible()
         {
-            newOrder.Visibility = Visibility.Visible;
+            AddToOrder.Content = "Новый заказ";
             DeskOrder.Visibility = Visibility.Hidden;
             DeskTotalCost.Visibility = Visibility.Hidden;
             DeskTotalLabel.Visibility = Visibility.Hidden;
-            AddToOrder.Visibility = Visibility.Hidden;
             Billbtn.Visibility = Visibility.Hidden;
+            CancelOrder.Visibility = Visibility.Hidden;
 
         }
 
         private void OrderInfoVisible()
         {
-            newOrder.Visibility = Visibility.Hidden;
+            AddToOrder.Content = "Добавить к заказу";
             DeskOrder.Visibility = Visibility.Visible;
             DeskTotalCost.Visibility = Visibility.Visible;
             DeskTotalLabel.Visibility = Visibility.Visible;
-            AddToOrder.Visibility = Visibility.Visible;
             Billbtn.Visibility = Visibility.Visible;
+            CancelOrder.Visibility = Visibility.Visible;
+        }
+
+        private void ShowRestaurantWindow()
+        {
+            dishesGrid.Visibility = Visibility.Collapsed;
+            orderGrid.Visibility = Visibility.Visible;
+            DeskOrder.Visibility = Visibility.Visible;
+            DeskTotalLabel.Visibility = Visibility.Visible;
+            DeskTotalCost.Visibility = Visibility.Visible;
+            Billbtn.Visibility = Visibility.Visible;
+        }
+
+        private void CancelOrder_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteOrder();
+            NewOrderVisible();
+            DeskOrder.Items.Refresh();
+        }
+
+        private void DeleteOrder()
+        {
+            var currentDesc = Globals.activeDesk;
+            currentDesc.TableDishes.Clear();
+            currentDesc.Order = false;
+            currentDesc.TotalCost = 0;
+            DeskTotalCost.Content = 0;
+            BillTotalCost.Content = 0;
         }
     }
 
