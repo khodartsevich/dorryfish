@@ -16,7 +16,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}" Icon="wine.png"
 >
     <Grid x:Name="mainGrid" HorizontalAlignment="Left" Height="734" VerticalAlignment="Top" Width="1014">
-        <Grid x:Name="orderGrid" Margin="0,0,-2,-2" d:IsHidden="True">
+        <Grid x:Name="orderGrid" Margin="0,0,-2,-2">
             <TabControl HorizontalAlignment="Left" Height="735" VerticalAlignment="Top" Width="1016" Margin="0,0,-216,-182.25" Background="{x:Null}">
                 <TabItem x:Name="Restaurant" Header="Ресторан" Margin="0" Height="30" FontSize="18" Width="240" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
                     <Grid x:Name="DeskGrid" Margin="0,0,0,-1">
@@ -30,8 +30,6 @@
                                 </TransformGroup>
                             </Separator.RenderTransform>
                         </Separator>
-                        <Button x:Name="newOrder" Content="Новый заказ" HorizontalAlignment="Left" Margin="343,0,0,0" VerticalAlignment="Top" Width="165" Click="newOrder_Click" Height="35" Background="White" BorderBrush="#FF850011" BorderThickness="1" Foreground="#FF850011" FontSize="18">
-                        </Button>
                         <Button x:Name="AddToOrder" Content="Добавить к заказу" HorizontalAlignment="Left" Margin="835,23,0,0" VerticalAlignment="Top" Width="165" Click="AddToOrder_Click" Height="35" Background="White" BorderBrush="#FF850011" BorderThickness="1" Foreground="#FF850011" FontSize="16" Padding="10,4"/>
                         <Button x:Name="Billbtn" Content="Чек" HorizontalAlignment="Left" Margin="835,635.667,0,0" VerticalAlignment="Top" Width="165" Click="Billbtn_Click" Height="35" Background="White" BorderBrush="#FF850011" BorderThickness="1" Foreground="#FF850011" FontSize="16"/>
                         <DataGrid x:Name="DeskOrder" Margin="602.333,146.467,6.667,159.533" AutoGenerateColumns="False" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,1,0,5" IsReadOnly="True" Foreground="Black">
@@ -132,7 +130,7 @@
             </TabControl>
 
         </Grid>
-        <Grid x:Name="dishesGrid" HorizontalAlignment="Left" Height="736" VerticalAlignment="Top" Width="1016" Margin="0,0,-213.5,-176">
+        <Grid x:Name="dishesGrid" HorizontalAlignment="Left" Height="736" VerticalAlignment="Top" Width="1016" Margin="0,0,-213.5,-176" d:IsHidden="True">
             <Button x:Name="backToRest" Content="Оформить заказ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Height="35" Margin="830,681,0,0" Click="backToRest_Click" FontSize="16" Background="White" Foreground="#FF850011" BorderBrush="#FF850011"/>
             <Separator HorizontalAlignment="Left" Height="12" Margin="280,362,0,0" VerticalAlignment="Top" Width="736" RenderTransformOrigin="0.5,0.5">
                 <Separator.RenderTransform>
